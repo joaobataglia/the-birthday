@@ -210,6 +210,17 @@ body {
   border: 1px solid var(--border);
 }
 
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.actions .btn {
+  flex: 1;
+  text-align: center;
+  margin: 0.4rem 0;
+}
+
 .cards,
 .grid,
 .menugrid {
@@ -314,6 +325,85 @@ body {
   line-height: 1;
   cursor: pointer;
 }
+.lightbox-caption {
+  color: var(--text-dim);
+  text-align: center;
+  margin: 0.6rem 0 0;
+}
+
+#countdown.gold .cd-num {
+  color: var(--accent-2);
+  animation: gold-pulse 1.2s ease-in-out infinite;
+}
+@keyframes gold-pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    text-shadow: 0 0 18px var(--accent-2);
+  }
+}
+
+.hidden-egg {
+  display: inline-block;
+  opacity: 0.15;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.hidden-egg.found {
+  opacity: 1;
+}
+.egg-badge {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 40;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  z-index: 200;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  max-width: min(90vw, 420px);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.9rem 1.2rem;
+  border-radius: 16px;
+  z-index: 210;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.toast.in {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 
 .content {
   max-width: 1200px;
@@ -338,6 +428,7 @@ body {
   display: flex;
   align-items: center;
   font-weight: 500;
+  gap: 0.6rem;
 }
 
 .day-switch {
