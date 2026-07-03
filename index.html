@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#050507" />
+    <title>22zão do Jão</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="i-calendar" viewBox="0 0 24 24">
+        <path d="M7 3v3M17 3v3M4 9h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z" />
+      </symbol>
+      <symbol id="i-users" viewBox="0 0 24 24">
+        <path d="M8 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+        <path d="M2.5 20c.6-3.4 3-5.5 5.5-5.5s4.9 2.1 5.5 5.5M16 12a3 3 0 1 0 0-6M16.5 14.5c2.2.3 4 2.2 4.5 5.5" />
+      </symbol>
+      <symbol id="i-wave" viewBox="0 0 24 24">
+        <path
+          d="M2 16c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0M2 20c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0M8 10a3 3 0 1 0 6-2"
+        />
+      </symbol>
+      <symbol id="i-fire" viewBox="0 0 24 24">
+        <path
+          d="M12 2s-4 4.5-4 8.5a4 4 0 0 0 8 0c0-1-.4-1.8-1-2.5.3 1.5-.6 2.5-1.5 2.5.6-2-1-3-1.5-4.5-.3 1-1 1.7-1 2.5 0-2.5 1-4.5 1-6.5ZM7 15a5 5 0 0 0 10 0"
+        />
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22Z" />
+        <circle cx="12" cy="9.5" r="2.3" />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+    </svg>
+
+    <header class="nav">
+      <a href="#home" class="logo">22zão do Jão</a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+    <nav class="mobile-nav">
+      <a href="#home">Início</a>
+      <a href="#onde">Onde</a>
+      <a href="#prog">Programação</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <section id="home" class="hero">
+      <div class="mesh" aria-hidden="true"></div>
+      <div class="overlay">
+        <p class="eyebrow">Você está convidado</p>
+        <h1>22zão do Jão</h1>
+        <p class="sub">25–26 de Julho de 2026 · Dois dias de churrasco, piscina, fogueira e resenha.</p>
+        <div id="countdown" class="countdown" aria-live="polite">
+          <div class="cd-unit">
+            <span class="cd-num" data-d>00</span>
+            <span class="cd-label">dias</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" data-h>00</span>
+            <span class="cd-label">horas</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" data-m>00</span>
+            <span class="cd-label">min</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" data-s>00</span>
+            <span class="cd-label">seg</span>
+          </div>
+        </div>
+        <div class="buttons">
+          <a class="btn" href="#onde">Ver local</a>
+          <a class="btn secondary" target="_blank" rel="noopener" href="https://www.nositedafesta.com.br/chacara-aconchego/">Chácara</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards reveal">
+      <div>
+        <svg class="icon"><use href="#i-calendar" /></svg>
+        <h3>Data</h3>
+        <p>25 e 26/07/2026</p>
+      </div>
+      <div>
+        <svg class="icon"><use href="#i-users" /></svg>
+        <h3>Convidados</h3>
+        <p>35 pessoas</p>
+      </div>
+      <div>
+        <svg class="icon"><use href="#i-wave" /></svg>
+        <h3>Piscina</h3>
+        <p>Leve roupa de banho</p>
+      </div>
+      <div>
+        <svg class="icon"><use href="#i-fire" /></svg>
+        <h3>Fogueira</h3>
+        <p>S'mores à noite</p>
+      </div>
+    </section>
+
+    <section id="onde" class="content reveal">
+      <h2>
+        <svg class="icon inline"><use href="#i-pin" /></svg>
+        Onde
+      </h2>
+      <p>Chácara Aconchêgo - Rua E, 185 - Recreio Internacional.</p>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.nositedafesta.com.br/chacara-aconchego/">Abrir localização</a>
+      <h3>Atrações</h3>
+      <div class="grid">
+        <div>
+          <span class="emoji">⚽</span>
+          Futebol
+        </div>
+        <div>
+          <span class="emoji">🏐</span>
+          Vôlei
+        </div>
+        <div>
+          <span class="emoji">🏊</span>
+          Piscina
+        </div>
+        <div>
+          <span class="emoji">🎱</span>
+          Sinuca
+        </div>
+        <div>
+          <span class="emoji">🔥</span>
+          Fogueira
+        </div>
+        <div>
+          <span class="emoji">🃏</span>
+          Jogos
+        </div>
+      </div>
+    </section>
+
+    <section id="prog" class="content alt reveal">
+      <h2>Programação</h2>
+      <div class="day-switch" role="tablist">
+        <button class="day-btn active" data-day="1" role="tab" aria-selected="true">Dia 1 · 25/07</button>
+        <button class="day-btn" data-day="2" role="tab" aria-selected="false">Dia 2 · 26/07</button>
+      </div>
+
+      <div class="day-panel" data-day="1">
+        <ul class="timeline">
+          <li>
+            <span class="emoji">🌅</span>
+            <div>
+              <strong>Manhã</strong>
+              <p>Chegada e piscina</p>
+            </div>
+          </li>
+          <li>
+            <span class="emoji">🍝</span>
+            <div>
+              <strong>Almoço</strong>
+              <p>Monte seu macarrão</p>
+            </div>
+          </li>
+          <li>
+            <span class="emoji">🔥</span>
+            <div>
+              <strong>Tarde</strong>
+              <p>Várzea</p>
+            </div>
+          </li>
+          <li>
+            <span class="emoji">🎉</span>
+            <div>
+              <strong>Noite e madrugada</strong>
+              <p>Festa junina, fogueira e marshmallows</p>
+            </div>
+          </li>
+        </ul>
+        <h3>Cardápio</h3>
+        <div class="menugrid">
+          <div>
+            <h4>Massas</h4>
+            <p>Espaguete · Penne</p>
+          </div>
+          <div>
+            <h4>Molhos</h4>
+            <p>Bolonhesa · Branco</p>
+          </div>
+          <div>
+            <h4>Complementos</h4>
+            <p>Frango, bacon, queijos, milho, azeitona...</p>
+          </div>
+          <div>
+            <h4>Festa junina</h4>
+            <p>Hot dog, pipoca, amendoim, s'mores</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-panel" data-day="2" hidden>
+        <p class="day-note">De boa, sem roteiro fixo - quem quiser ficar continua aproveitando.</p>
+        <ul class="timeline">
+          <li>
+            <span class="emoji">🌄</span>
+            <div>
+              <strong>Manhã</strong>
+              <p>Acordar com calma e café da manhã</p>
+            </div>
+          </li>
+          <li>
+            <span class="emoji">🏊</span>
+            <div>
+              <strong>Resto do dia</strong>
+              <p>Mais piscina e resenha, sem hora marcada</p>
+            </div>
+          </li>
+          <li>
+            <span class="emoji">🎶</span>
+            <div>
+              <strong>Trilha sonora</strong>
+              <p>Som ligado o dia todo</p>
+            </div>
+          </li>
+        </ul>
+        <h3>Cardápio</h3>
+        <p class="day-note">Ainda sendo definido.</p>
+      </div>
+    </section>
+
+    <section id="galeria" class="content reveal">
+      <h2>Galeria</h2>
+      <div class="gallery">
+        <button data-full="assets/images/entrance.png"><img src="assets/images/entrance.png" alt="Entrada da chácara" loading="lazy" /></button>
+        <button data-full="assets/images/pool.png"><img src="assets/images/pool.png" alt="Piscina" loading="lazy" /></button>
+        <button data-full="assets/images/mini_pool.png"><img src="assets/images/mini_pool.png" alt="Piscina infantil" loading="lazy" /></button>
+        <button data-full="assets/images/barbecue_area.png"><img src="assets/images/barbecue_area.png" alt="Área de churrasco" loading="lazy" /></button>
+        <button data-full="assets/images/grass_field.png"><img src="assets/images/grass_field.png" alt="Gramado" loading="lazy" /></button>
+        <button data-full="assets/images/games.png"><img src="assets/images/games.png" alt="Área de jogos" loading="lazy" /></button>
+        <button data-full="assets/images/tables.png"><img src="assets/images/tables.png" alt="Mesas" loading="lazy" /></button>
+        <button data-full="assets/images/beds.png"><img src="assets/images/beds.png" alt="Quartos" loading="lazy" /></button>
+        <button data-full="assets/images/image.png"><img src="assets/images/image.png" alt="Vista da piscina" loading="lazy" /></button>
+      </div>
+      <dialog class="lightbox">
+        <img alt="" />
+        <button class="lightbox-close" aria-label="Fechar">&times;</button>
+      </dialog>
+    </section>
+
+    <section id="faq" class="content alt reveal">
+      <h2>Perguntas frequentes</h2>
+      <details>
+        <summary>
+          Posso dormir lá?
+          <svg class="icon plus"><use href="#i-plus" /></svg>
+        </summary>
+        <p>Deve</p>
+      </details>
+      <details>
+        <summary>
+          Preciso levar bebida?
+          <svg class="icon plus"><use href="#i-plus" /></svg>
+        </summary>
+        <p>Cada um leva a sua, se não eu fico pobre</p>
+      </details>
+      <details>
+        <summary>
+          O que levar?
+          <svg class="icon plus"><use href="#i-plus" /></svg>
+        </summary>
+        <p>De essencial, roupa de piscina e bebida. Se tiver, jogos, bola e caixa de som se tiver.</p>
+      </details>
+    </section>
+
+    <footer>Feito com carinho para o 22zão do Jão</footer>
+    <script src="script.js"></script>
+  </body>
+</html>
