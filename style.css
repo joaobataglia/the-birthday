@@ -97,6 +97,7 @@ body {
   background: none;
   border: 0;
   cursor: pointer;
+  user-select: none;
   padding: 8px;
 }
 .menu-toggle span {
@@ -361,12 +362,17 @@ body {
   bottom: 16px;
   left: 16px;
   z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   background: var(--surface);
   border: 1px solid var(--border);
   backdrop-filter: blur(8px);
   padding: 0.5rem 0.9rem;
   border-radius: 999px;
   font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
 }
 
 .confetti-piece {
@@ -398,9 +404,18 @@ body {
   border-radius: 16px;
   z-index: 210;
   opacity: 0;
+  white-space: pre-wrap;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   transition:
     opacity 0.3s,
     transform 0.3s;
+}
+.toast .icon {
+  flex-shrink: 0;
 }
 .toast.in {
   opacity: 1;
@@ -451,6 +466,7 @@ body {
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
   cursor: pointer;
+  user-select: none;
   transition:
     background 0.2s,
     color 0.2s;
@@ -520,6 +536,7 @@ details {
 }
 summary {
   cursor: pointer;
+  user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;

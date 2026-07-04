@@ -82,6 +82,19 @@ const io = new IntersectionObserver(
 );
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+function playSound(src) {
+  new Audio(src).play().catch(() => {});
+}
+
+function playClickSound() {
+  playSound(Math.random() < 0.75 ? "assets/sounds/interactions/click.mp3" : "assets/sounds/interactions/click-nice.mp3");
+}
+
+function playRandomSound(sounds) {
+  const sound = sounds[Math.floor(Math.random() * sounds.length)];
+  playSound(sounds[Math.floor(Math.random() * sounds.length)]);
+}
+
 function confettiBurst() {
   const colors = ["#ff8a3d", "#ffc35c", "#ffffff", "#ff5a1e"];
   for (let i = 0; i < 40; i++) {
@@ -95,15 +108,41 @@ function confettiBurst() {
   }
 }
 
-function toast(message, timeout = 300) {
+// Turns a drink name into a coupon-looking code, e.g. "Cerveja bem gelada" -> "CERVEJA4821"
+function drinkCode(name) {
+  const slug = name
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toUpperCase()
+    .replace(/[^A-Z]/g, "")
+    .slice(0, 7);
+  let hash = 0;
+  for (const c of name) hash = (hash * 31 + c.charCodeAt(0)) >>> 0;
+  return `${slug}${1000 + (hash % 9000)}`;
+}
+
+// Draws (and remembers) the one free-drink coupon earned for finishing the egg hunt
+function drawEggHuntCoupon(drinks) {
+  let saved = JSON.parse(localStorage.getItem("eggHuntCoupon") || "null");
+  if (!saved) {
+    const drink = drinks[Math.floor(Math.random() * drinks.length)];
+    saved = { drink, code: drinkCode(drink) };
+    localStorage.setItem("eggHuntCoupon", JSON.stringify(saved));
+  }
+  return saved;
+}
+
+function toast(message, timeout = 300, icon = "party-popper") {
   const el = document.createElement("div");
   el.className = "toast";
-  el.textContent = message;
+  el.innerHTML = `<i data-lucide="${icon}" class="icon"></i><span></span>`;
+  el.querySelector("span").textContent = message;
   document.querySelector(".toast-host").appendChild(el);
+  lucide.createIcons();
   requestAnimationFrame(() => el.classList.add("in"));
-  el.addEventListener("click", (e) => {
-    e.target.classList.remove("in");
-    setTimeout(() => e.target.remove(), timeout);
+  el.addEventListener("click", () => {
+    el.classList.remove("in");
+    setTimeout(() => el.remove(), timeout);
   });
 
   if (timeout == 0) return;
@@ -144,14 +183,44 @@ function toast(message, timeout = 300) {
 
 // Shake to reveal: phone shake (devicemotion) or frantic mouse shake on desktop
 (function shakeEgg() {
-  const drinks = ["Caipirinha", "Cerveja bem gelada", "Quentão", "Suco de limão com vodka", "Refri de guaraná", "Vinho quente"];
+  const drinks = [
+    { name: "Cervejinha", sounds: ["assets/sounds/reactions/ack.mp3"] },
+    { name: "Cerveja gelada", sounds: ["assets/sounds/reactions/heavenly-music.mp3", "assets/sounds/reactions/mlg-airhorn.mp3"] },
+    { name: "Cerveja artesanal", sounds: ["assets/sounds/reactions/rehehehe.mp3", "assets/sounds/reactions/prowler.mp3"] },
+    { name: "Chopp", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/heavenly-music.mp3"] },
+
+    { name: "Coca-Cola", sounds: ["assets/sounds/reactions/ack.mp3"] },
+    { name: "Coca Zero", sounds: ["assets/sounds/reactions/fart.mp3", "assets/sounds/reactions/brain-fart.mp3"] },
+    { name: "Guaraná", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
+    { name: "H2OH", sounds: ["assets/sounds/reactions/brain-fart.mp3"] },
+
+    { name: "Água com gás", sounds: ["assets/sounds/reactions/fart-reverb.mp3"] },
+    { name: "Chá gelado", sounds: ["assets/sounds/reactions/ack.mp3", "assets/sounds/reactions/pan-hit.mp3"] },
+    { name: "Suco de laranja", sounds: ["assets/sounds/reactions/heavenly-music.mp3"] },
+    { name: "Suco de uva", sounds: ["assets/sounds/reactions/rehehehe.mp3"] },
+    { name: "Suco de morango", sounds: ["assets/sounds/reactions/heavenly-music.mp3", "assets/sounds/reactions/rehehehe.mp3"] },
+    { name: "Isotônico", sounds: ["assets/sounds/reactions/pan-hit.mp3"] },
+
+    { name: "Vodka", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/prowler.mp3"] },
+    { name: "Gin", sounds: ["assets/sounds/reactions/heavenly-music.mp3"] },
+    { name: "Tequila", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
+
+    { name: "Energético", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/brain-fart.mp3"] },
+    { name: "Água tônica", sounds: ["assets/sounds/reactions/fart.mp3"] },
+    { name: "Skol Beats", sounds: ["assets/sounds/reactions/rehehehe.mp3"] },
+    { name: "Smirnoff Ice", sounds: ["assets/sounds/reactions/pan-hit.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
+    { name: "Keep Cooler", sounds: ["assets/sounds/reactions/heavenly-music.mp3", "assets/sounds/reactions/rehehehe.mp3"] },
+  ];
+
   let lastTrigger = 0;
   function trigger() {
     const now = Date.now();
     if (now - lastTrigger < 8000) return;
     lastTrigger = now;
     confettiBurst();
-    toast(`🍹 Bebida sorteada: ${drinks[Math.floor(Math.random() * drinks.length)]}`, 800);
+    const drink = drinks[Math.floor(Math.random() * drinks.length)];
+    playRandomSound(drink.sounds);
+    toast(`Bebida sugerida pra trazer: ${drink.name}`, 800, "martini");
   }
 
   let lastAccel = null;
@@ -212,25 +281,36 @@ function toast(message, timeout = 300) {
 
 // Hidden emoji scavenger hunt: find all 5 for a payoff
 (function eggHunt() {
+  const drinks = ["Cervejinha quente", "Cerveja bem gelada", "Coca-cola pitchulinha", "Água kkkk", "Guaraná", "Água com gás"];
   const eggs = document.querySelectorAll(".hidden-egg");
   const badge = document.querySelector(".egg-badge");
   const total = eggs.length;
-  const found = new Set(JSON.parse(localStorage.getItem("eggsFound") || "[]"));
+  // const found = new Set(JSON.parse(localStorage.getItem("eggsFound") || "[]"));
+  const found = new Set(JSON.parse("[1,2,3,4]"));
+  const badgeLabel = badge.querySelector("span");
   function updateBadge() {
-    badge.textContent = `🔍 ${found.size}/${total}`;
+    badgeLabel.textContent = `${found.size}/${total}`;
   }
+  function showCoupon() {
+    const coupon = drawEggHuntCoupon(drinks);
+    toast(`Cupom: ${coupon.code}\n${coupon.drink} de graça no dia!`, 0, "party-popper");
+  }
+  badge.addEventListener("click", () => {
+    if (found.size === total) showCoupon();
+  });
   eggs.forEach((egg) => {
     if (found.has(egg.dataset.egg)) egg.classList.add("found");
     egg.addEventListener("click", (e) => {
       e.stopPropagation();
       if (found.has(egg.dataset.egg)) return;
+      playClickSound();
       found.add(egg.dataset.egg);
       egg.classList.add("found");
       localStorage.setItem("eggsFound", JSON.stringify([...found]));
       updateBadge();
       if (found.size === total) {
         confettiBurst();
-        toast("🎉 Achou os 5! Código PACU2026 = uma bebida de graça no dia.", 0);
+        showCoupon();
       }
     });
   });
