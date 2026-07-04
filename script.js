@@ -281,7 +281,16 @@ function toast(message, timeout = 300, icon = "party-popper") {
 
 // Hidden emoji scavenger hunt: find all 5 for a payoff
 (function eggHunt() {
-  const drinks = ["Cervejinha quente", "Cerveja bem gelada", "Coca-cola pitchulinha", "Água kkkk", "Guaraná", "Água com gás"];
+  const drinks = [
+    "Cerveja",
+    "Long Neck",
+    "Keep Cooler",
+    "Refrigerante",
+    "Guaraná",
+    "H2OH!",
+    "Água com gás",
+    "Água"
+  ];
   const eggs = document.querySelectorAll(".hidden-egg");
   const badge = document.querySelector(".egg-badge");
   const total = eggs.length;
