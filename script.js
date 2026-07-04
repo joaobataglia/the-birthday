@@ -186,7 +186,7 @@ function toast(message, timeout = 300, icon = "party-popper") {
   const drinks = [
     { name: "Cervejinha", sounds: ["assets/sounds/reactions/ack.mp3"] },
     { name: "Cerveja gelada", sounds: ["assets/sounds/reactions/heavenly-music.mp3", "assets/sounds/reactions/mlg-airhorn.mp3"] },
-    { name: "Cerveja artesanal", sounds: ["assets/sounds/reactions/rehehehe.mp3", "assets/sounds/reactions/prowler.mp3"] },
+    { name: "Cerveja artesanal", sounds: ["assets/sounds/reactions/rehehehe.mp3"] },
     { name: "Chopp", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/heavenly-music.mp3"] },
 
     { name: "Coca-Cola", sounds: ["assets/sounds/reactions/ack.mp3"] },
@@ -202,10 +202,10 @@ function toast(message, timeout = 300, icon = "party-popper") {
     { name: "Isotônico", sounds: ["assets/sounds/reactions/pan-hit.mp3"] },
 
     { name: "Vodka", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/prowler.mp3"] },
-    { name: "Gin", sounds: ["assets/sounds/reactions/heavenly-music.mp3"] },
+    { name: "Gin", sounds: ["assets/sounds/reactions/heavenly-music.mp3", "assets/sounds/reactions/prowler.mp3"] },
     { name: "Tequila", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
 
-    { name: "Energético", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/brain-fart.mp3"] },
+    { name: "Energético", sounds: ["assets/sounds/reactions/mlg-airhorn.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
     { name: "Água tônica", sounds: ["assets/sounds/reactions/fart.mp3"] },
     { name: "Skol Beats", sounds: ["assets/sounds/reactions/rehehehe.mp3"] },
     { name: "Smirnoff Ice", sounds: ["assets/sounds/reactions/pan-hit.mp3", "assets/sounds/reactions/fuuuuh.mp3"] },
@@ -220,7 +220,7 @@ function toast(message, timeout = 300, icon = "party-popper") {
     confettiBurst();
     const drink = drinks[Math.floor(Math.random() * drinks.length)];
     playRandomSound(drink.sounds);
-    toast(`Bebida sugerida pra trazer: ${drink.name}`, 800, "martini");
+    toast(`Bebida sugerida pra trazer: ${drink.name}`, 1700, "martini");
   }
 
   let lastAccel = null;
@@ -285,8 +285,7 @@ function toast(message, timeout = 300, icon = "party-popper") {
   const eggs = document.querySelectorAll(".hidden-egg");
   const badge = document.querySelector(".egg-badge");
   const total = eggs.length;
-  // const found = new Set(JSON.parse(localStorage.getItem("eggsFound") || "[]"));
-  const found = new Set(JSON.parse("[1,2,3,4]"));
+  const found = new Set(JSON.parse(localStorage.getItem("eggsFound") || "[]"));
   const badgeLabel = badge.querySelector("span");
   function updateBadge() {
     badgeLabel.textContent = `${found.size}/${total}`;
@@ -303,7 +302,6 @@ function toast(message, timeout = 300, icon = "party-popper") {
     egg.addEventListener("click", (e) => {
       e.stopPropagation();
       if (found.has(egg.dataset.egg)) return;
-      playClickSound();
       found.add(egg.dataset.egg);
       egg.classList.add("found");
       localStorage.setItem("eggsFound", JSON.stringify([...found]));
@@ -311,6 +309,9 @@ function toast(message, timeout = 300, icon = "party-popper") {
       if (found.size === total) {
         confettiBurst();
         showCoupon();
+        playSound("assets/sounds/reactions/mlg-airhorn.mp3");
+      } else {
+        playClickSound();
       }
     });
   });
