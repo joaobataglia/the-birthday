@@ -166,7 +166,7 @@ function toast(message, timeout = 300, icon = "party-popper") {
 (function logoEgg() {
   const logo = document.querySelector(".logo");
   const original = logo.textContent;
-  const silly = "22zão do Jão?? Seloko 💀";
+  const silly = "22zão do Jão..?? 🫣";
   let pressTimer;
   const swap = () => {
     logo.textContent = logo.textContent === original ? silly : original;
