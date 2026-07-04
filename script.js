@@ -215,7 +215,7 @@ function toast(message, timeout = 300, icon = "party-popper") {
   let lastTrigger = 0;
   function trigger() {
     const now = Date.now();
-    if (now - lastTrigger < 8000) return;
+    if (now - lastTrigger < 3000) return;
     lastTrigger = now;
     confettiBurst();
     const drink = drinks[Math.floor(Math.random() * drinks.length)];
